@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+input[type="text"],
+input[type="date"] {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+#result, #dayOfWeek {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  font-weight: bold;
+}

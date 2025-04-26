@@ -29,42 +29,36 @@ function calculateAge() {
 
   // Zodiac Sign Data
   const zodiacSigns = [
-    { name: "Capricorn", emoji: "♑️", start: "12-22", end: "01-19" },
-    { name: "Aquarius", emoji: "♒️", start: "01-20", end: "02-18" },
-    { name: "Pisces", emoji: "♓️", start: "02-19", end: "03-20" },
-    { name: "Aries", emoji: "♈️", start: "03-21", end: "04-19" },
-    { name: "Taurus", emoji: "♉️", start: "04-20", end: "05-20" },
-    { name: "Gemini", emoji: "♊️", start: "05-21", end: "06-20" },
-    { name: "Cancer", emoji: "♋️", start: "06-21", end: "07-22" },
-    { name: "Leo", emoji: "♌️", start: "07-23", end: "08-22" },
-    { name: "Virgo", emoji: "♍️", start: "08-23", end: "09-22" },
-    { name: "Libra", emoji: "♎️", start: "09-23", end: "10-22" },
-    { name: "Scorpio", emoji: "♏️", start: "10-23", end: "11-21" },
-    { name: "Sagittarius", emoji: "♐️", start: "11-22", end: "12-21" }
+    { name: "Capricorn", emoji: "♑️", startMonth: 12, startDay: 22, endMonth: 1, endDay: 19 },
+    { name: "Aquarius", emoji: "♒️", startMonth: 1, startDay: 20, endMonth: 2, endDay: 18 },
+    { name: "Pisces", emoji: "♓️", startMonth: 2, startDay: 19, endMonth: 3, endDay: 20 },
+    { name: "Aries", emoji: "♈️", startMonth: 3, startDay: 21, endMonth: 4, endDay: 19 },
+    { name: "Taurus", emoji: "♉️", startMonth: 4, startDay: 20, endMonth: 5, endDay: 20 },
+    { name: "Gemini", emoji: "♊️", startMonth: 5, startDay: 21, endMonth: 6, endDay: 20 },
+    { name: "Cancer", emoji: "♋️", startMonth: 6, startDay: 21, endMonth: 7, endDay: 22 },
+    { name: "Leo", emoji: "♌️", startMonth: 7, startDay: 23, endMonth: 8, endDay: 22 },
+    { name: "Virgo", emoji: "♍️", startMonth: 8, startDay: 23, endMonth: 9, endDay: 22 },
+    { name: "Libra", emoji: "♎️", startMonth: 9, startDay: 23, endMonth: 10, endDay: 22 },
+    { name: "Scorpio", emoji: "♏️", startMonth: 10, startDay: 23, endMonth: 11, endDay: 21 },
+    { name: "Sagittarius", emoji: "♐️", startMonth: 11, startDay: 22, endMonth: 12, endDay: 21 }
   ];
-
-  const month = birthDate.getMonth() + 1;
-  const day = birthDate.getDate();
-  const birthMD = (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
 
   let zodiac = "Unknown";
   let emoji = "";
 
+  const birthMonth = birthDate.getMonth() + 1;
+  const birthDay = birthDate.getDate();
+
   for (let sign of zodiacSigns) {
-    if (sign.start <= sign.end) {
-      // Normal signs (e.g., Aries, Taurus, etc.)
-      if (birthMD >= sign.start && birthMD <= sign.end) {
-        zodiac = sign.name;
-        emoji = sign.emoji;
-        break;
-      }
-    } else {
-      // Signs that wrap over the year-end (Capricorn)
-      if (birthMD >= sign.start || birthMD <= sign.end) {
-        zodiac = sign.name;
-        emoji = sign.emoji;
-        break;
-      }
+    if (
+      (birthMonth === sign.startMonth && birthDay >= sign.startDay) ||
+      (birthMonth === sign.endMonth && birthDay <= sign.endDay) ||
+      (sign.startMonth < sign.endMonth && birthMonth > sign.startMonth && birthMonth < sign.endMonth) ||
+      (sign.startMonth > sign.endMonth && (birthMonth > sign.startMonth || birthMonth < sign.endMonth))
+    ) {
+      zodiac = sign.name;
+      emoji = sign.emoji;
+      break;
     }
   }
 
@@ -77,3 +71,4 @@ function calculateAge() {
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   dayOfWeek.innerHTML = `🗓️ You were born on a <strong>${daysOfWeek[birthDate.getDay()]}</strong>.`;
 }
+
